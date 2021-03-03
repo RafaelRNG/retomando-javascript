@@ -81,6 +81,18 @@ function ordenarPorAtributoNumerico(attr, ordem = "asc") {
    }
 }
 
+function composicao(...fns) {
+   return valor => {
+      return fns.reduce(async (acc, fn) => {
+         if (Promise.resolve(acc) === acc) {
+            return fn(await acc)
+         } else {
+            return fn(acc);
+         }
+      }, valor)
+   }
+}
+
 module.exports = {
    lerDiretorio,
    elementosTerminadosCom,
@@ -91,5 +103,6 @@ module.exports = {
    removerSeApenasNumeros,
    removerSimbolos,
    agruparPalavras,
-   ordenarPorAtributoNumerico
+   ordenarPorAtributoNumerico,
+   composicao
 }
